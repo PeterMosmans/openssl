@@ -79,5 +79,4 @@ clean:
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 
 chacha_enc.o: ../../include/openssl/chacha.h
-chacha_enc.o: ../../include/openssl/opensslconf.h
-chacha_enc.o: chacha_enc.c
+chacha_enc.o: ../../include/openssl/opensslconf.h chacha_enc.c
