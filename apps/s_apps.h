@@ -151,7 +151,7 @@ typedef fd_mask fd_set;
 #define PORT_STR        "4433"
 #define PROTOCOL        "tcp"
 
-int do_server(int port, int type, int *ret,
+int do_server(char *port, int type, int *ret,
               int (*cb) (char *hostname, int s, int stype,
                          unsigned char *context), unsigned char *context,
               int naccept);
@@ -167,11 +167,10 @@ int ssl_print_point_formats(BIO *out, SSL *s);
 int ssl_print_curves(BIO *out, SSL *s, int noshared);
 #endif
 int ssl_print_tmp_key(BIO *out, SSL *s);
-int init_client(int *sock, char *server, int port, int type);
+int init_client(int *sock, char *server, char *port, int type);
 int should_retry(int i);
 int extract_port(char *str, short *port_ptr);
-int extract_host_port(char *str, char **host_ptr, unsigned char *ip,
-                      short *p);
+int extract_host_port(char *str, char **host_ptr, char **port_ptr);
 
 long MS_CALLBACK bio_dump_callback(BIO *bio, int cmd, const char *argp,
                                    int argi, long argl, long ret);
