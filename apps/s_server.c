@@ -1082,7 +1082,7 @@ int MAIN(int argc, char *argv[])
 {
     X509_VERIFY_PARAM *vpm = NULL;
     int badarg = 0;
-    short port = PORT;
+    char *port_str = PORT_STR;
     char *CApath = NULL, *CAfile = NULL;
     char *chCApath = NULL, *chCAfile = NULL;
     char *vfyCApath = NULL, *vfyCAfile = NULL;
@@ -1170,7 +1170,8 @@ int MAIN(int argc, char *argv[])
         if ((strcmp(*argv, "-port") == 0) || (strcmp(*argv, "-accept") == 0)) {
             if (--argc < 1)
                 goto bad;
-            if (!extract_port(*(++argv), &port))
+            port_str = *(++argv);
+            if (port_str == NULL || *port_str == '\0')
                 goto bad;
         } else if (strcmp(*argv, "-naccept") == 0) {
             if (--argc < 1)
@@ -2064,13 +2065,13 @@ int MAIN(int argc, char *argv[])
     BIO_printf(bio_s_out, "ACCEPT\n");
     (void)BIO_flush(bio_s_out);
     if (rev)
-        do_server(port, socket_type, &accept_socket, rev_body, context,
+        do_server(port_str, socket_type, &accept_socket, rev_body, context,
                   naccept);
     else if (www)
-        do_server(port, socket_type, &accept_socket, www_body, context,
+        do_server(port_str, socket_type, &accept_socket, www_body, context,
                   naccept);
     else
-        do_server(port, socket_type, &accept_socket, sv_body, context,
+        do_server(port_str, socket_type, &accept_socket, sv_body, context,
                   naccept);
     print_stats(bio_s_out, ctx);
     ret = 0;
